@@ -1,7 +1,25 @@
-// The full menu. Each item is { name, price, desc }.
+// =============================================================================
+// THE MENU  —  every dish, drink and price shown on the /menu page
+//
+// Each line like
+//     item('Penne alla Vodka', '$15', 'Penne in a creamy tomato vodka sauce.'),
+// is one menu item:  item('Name', 'Price', 'Description')
+//
+//   - To change a price:     edit the middle part, e.g. '$15' → '$16'
+//   - To add a dish:         copy a whole line, paste it where you want it, edit it
+//   - To remove a dish:      delete its whole line
+//   - No description?        leave it off:  item('Tiramisu', '$10')
+//   - No price shown?        use empty quotes:  item('Old Fashioned', '', 'Penelope ...')
+//
+// Keep the comma at the end of each line. Items show in the order they're listed.
+// If a name has an apostrophe, use the curly one (’) like in Chef’s Salad.
+// =============================================================================
 
+// Helper that turns item('Name', '$10', 'Desc') into the format the page expects.
+// You don't need to touch this.
 const item = (name, price, desc = '') => ({ name, price, desc })
 
+// LUNCH — the framed box at the top. Two columns: pasta and entrées.
 export const lunch = {
   note: 'Served daily until 3:00 PM',
   pasta: [
@@ -20,6 +38,8 @@ export const lunch = {
   ],
 }
 
+// DINNER — one { title, items } block per category.
+// To add a whole new category, copy a block from `{ title:` to its closing `},`.
 export const dinner = [
   {
     title: 'Antipasti',
@@ -98,12 +118,14 @@ export const dinner = [
   },
 ]
 
+// "Add to any salad or pasta" box under the dinner menu.
 export const addOns = [
   item('Grilled Chicken', '$8'),
   item('Shrimp', '$12'),
   item('Fresh Burrata', '$8'),
 ]
 
+// DOLCI — desserts (name and price only).
 export const desserts = [
   item('Tiramisu', '$10'),
   item('Cannoli', '$9'),
@@ -113,6 +135,7 @@ export const desserts = [
   item('Limoncello Mascarpone Cake', '$10'),
 ]
 
+// COCKTAILS — no prices on the menu (the '' in the middle), just name and ingredients.
 export const cocktails = [
   item('Limoncello Martini', '', '360 Lemon Vodka, housemade limoncello, and fresh lemon.'),
   item('Aperol Spritz', '', 'Aperol, Cointreau, fresh lemon, and Coppola Prosecco.'),
@@ -124,7 +147,7 @@ export const cocktails = [
   item('Limoncello Spritz', '', 'Hendrick’s Gin, housemade limoncello, and Coppola Prosecco.'),
 ]
 
-// Wine prices are glass / bottle.
+// WINE — grouped by type. Prices are 'glass / bottle'; '—' means bottle only.
 export const wine = [
   {
     title: 'Red',
@@ -168,12 +191,14 @@ export const wine = [
   },
 ]
 
+// BEER — just names. Shown as one line separated by dots.
 export const beer = [
   'Abita', 'Blue Moon', 'Bud Light', 'Coors Light', 'Corona Especial', 'Dos Equis Especial',
   'Heineken', 'High Noon', 'Michelob Ultra', 'Miller Lite', 'Modelo Especial', 'Peroni',
   'Stella Artois', 'Yuengling Flight', 'Yuengling Lager',
 ]
 
+// Small print at the very bottom of the menu page. Each line is its own sentence.
 export const menuFinePrint = [
   'Parties of 5 or more will have a 20% gratuity added. A 4% non-cash adjustment is added to all card transactions.',
 ]

@@ -1,24 +1,54 @@
-:root {
-  --bg: #0E0D0B;
-  --bg-raised: #17150F;
-  --line: #2A261F;
-  --line-strong: #3A3226;
-  --frame: #5C4C2A;
-  --frame-double: #9C7430;
-  --text: #F2EBDD;
-  --text-soft: #CFC6B5;
-  --text-muted: #B8AE9C;
-  --text-faint: #8C8270;
-  --gold: #C9912F;
-  --gold-hover: #E0AC52;
-  --gold-light: #E6C27A;
-  --italy-green: #1F6B3A;
-  --italy-red: #8E2A2A;
+/* =============================================================================
+   STYLES — how everything looks: colors, fonts, spacing and layout
 
-  --font-script: 'Mrs Saint Delafield', cursive;
-  --font-display: 'Cinzel', serif;
-  --font-body: 'EB Garamond', serif;
+   The page files (Home.jsx, Menu.jsx) put class names on things, e.g.
+   className="card". The rules below say how each class looks, e.g. `.card { ... }`.
+   To find the styling for something, search this file for its class name.
+
+   The file is split into labeled parts, in this order:
+     Colors & fonts → Basics → Metallic gold → Buttons → Ornaments → Header →
+     Home page sections (hero, hours, cards, favorites, bar, events, story,
+     news, visit) → Footer → Menu page → Small screens (phones)
+
+   A few terms you'll see:
+     px          pixels (size on screen)
+     gap         space between items in a row or grid
+     padding     space inside a box, around its contents
+     margin      space outside a box
+     flex/grid   ways of lining things up in rows and columns
+     clamp(a, b, c)  "size b, but never smaller than a or bigger than c" —
+                     how the big titles shrink on phones
+     @media (max-width: 640px)  rules that only apply on phone-sized screens
+   ============================================================================= */
+
+
+/* ---------- Colors & fonts ----------
+   Change a color here and it changes everywhere on the site.
+   Colors are hex codes: #RRGGBB (red, green, blue). */
+:root {
+  --bg: #0E0D0B;            /* page background (near-black) */
+  --bg-raised: #17150F;     /* slightly lighter background for alternating bands */
+  --line: #2A261F;          /* thin dividing lines */
+  --line-strong: #3A3226;   /* card borders */
+  --frame: #5C4C2A;         /* dark gold frame around photos and cards */
+  --frame-double: #9C7430;  /* the double gold frame around Lunch and Dolci */
+  --text: #F2EBDD;          /* main text (warm cream) */
+  --text-soft: #CFC6B5;     /* paragraphs */
+  --text-muted: #B8AE9C;    /* menu descriptions, small print */
+  --text-faint: #8C8270;    /* the faintest text (placeholder labels) */
+  --gold: #C9912F;          /* the main gold: links, prices, small labels */
+  --gold-hover: #E0AC52;    /* gold when you hover over a link */
+  --gold-light: #E6C27A;    /* lighter gold for menu category headings */
+  --italy-green: #1F6B3A;   /* flag stripe */
+  --italy-red: #8E2A2A;     /* flag stripe */
+
+  --font-script: 'Mrs Saint Delafield', cursive;  /* the "Eataliano" signature */
+  --font-display: 'Cinzel', serif;                /* headings */
+  --font-body: 'EB Garamond', serif;              /* everything else */
 }
+
+
+/* ---------- Basics ---------- */
 
 * { box-sizing: border-box; }
 
@@ -43,9 +73,12 @@ p { margin: 0; }
 
 .sprite { display: none; }
 
+/* Keeps content from getting wider than 1200px and centers it, with breathing room on the sides */
 .container { max-width: 1200px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
 
-/* ---------- Metallic gold ---------- */
+/* ---------- Metallic gold ----------
+   The shiny gold-foil look on "Eataliano", "Elevated service." and the gold buttons.
+   It's a gradient (several golds blending together) clipped to the shape of the text. */
 
 .metal-text {
   background: linear-gradient(120deg, #7A5518 0%, #C9912F 18%, #F6E2A8 34%, #D7A64A 48%, #8E6420 64%, #E6BE6A 82%, #A8782A 100%);
@@ -55,6 +88,11 @@ p { margin: 0; }
   -webkit-text-fill-color: transparent;
 }
 
+/* ---------- Buttons ----------
+   .btn          shared size/shape for every button
+   .btn-metal    solid gold (Order Online, Plan an Event)
+   .btn-outline  gold outline (View the Menu, Get Directions)
+   .btn-plain    no box (the phone number in the hero) */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -103,12 +141,16 @@ p { margin: 0; }
 .tricolore span:nth-child(2) { background: var(--text); }
 .tricolore span:nth-child(3) { background: var(--italy-red); }
 
+/* The big heading of each section ("Happy hour & live music", "House favorites", ...) */
 .section-title { font-size: 44px; margin: 8px 0 40px; }
 
+/* "band" = a section with the slightly lighter background, so sections alternate dark / lighter */
 .band { background: var(--bg-raised); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 
+/* Space above and below each section */
 .section { padding-top: 88px; padding-bottom: 88px; }
 
+/* Thin gold frame with a small gap around a photo (hero, bar, family) */
 .framed { padding: 10px; border: 1px solid var(--frame); }
 
 /* Stand-in for a photo that hasn't been picked yet */
@@ -310,9 +352,31 @@ p { margin: 0; }
 
 /* ---------- Home: story ---------- */
 
-.story { max-width: 820px; margin: 0 auto; padding: 96px 24px; text-align: center; }
-.story .section-title { margin-bottom: 24px; }
-.story p:last-child { color: var(--text-soft); }
+.story .lede { margin-bottom: 0; }
+
+/* ---------- Home: in the news ---------- */
+
+.press-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+.press-grid + .divider { margin-top: 64px; }
+
+.press-card {
+  background: var(--bg);
+  border: 1px solid var(--line-strong);
+  padding: 28px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.press-card .when { font-size: 13px; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; }
+.press-card h3 { font-size: 26px; line-height: 1.25; }
+.press-card p:not(.when) { color: var(--text-soft); }
+.press-card a { margin-top: auto; padding-top: 8px; font-weight: 500; letter-spacing: 0.05em; }
+
+.press-card.post { padding: 0; overflow: hidden; }
+.press-card.post .photo { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
+.post-body { padding: 24px 28px 28px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+
+.press-subtitle { text-align: center; font-size: 32px; margin-bottom: 32px; }
 
 /* ---------- Home: visit ---------- */
 
@@ -445,7 +509,9 @@ p { margin: 0; }
 }
 .menu-footer .fine { font-style: italic; color: var(--text-faint); }
 
-/* ---------- Small screens ---------- */
+/* ---------- Small screens ----------
+   Everything inside here only applies on screens 640px wide or narrower (phones).
+   It tightens spacing and shrinks the biggest text so it fits. */
 
 @media (max-width: 640px) {
   .container { padding-left: 16px; padding-right: 16px; }

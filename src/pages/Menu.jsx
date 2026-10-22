@@ -1,3 +1,13 @@
+// =============================================================================
+// MENU PAGE  —  the page at  /menu
+//
+// This file is only the LAYOUT of the menu (frames, headings, columns).
+// The dishes, descriptions and prices all live in src/data/menu.js —
+// to change a price or add a dish, edit that file, not this one.
+//
+// Sections, top to bottom: title → Lunch → Dinner → Dolci (desserts) → Drinks → fine print.
+// =============================================================================
+
 import Header from '../components/Header.jsx'
 import MenuItem from '../components/MenuItem.jsx'
 import { Branch, Flourished, Divider, Corners, Grapes, Tricolore } from '../components/Ornaments.jsx'
@@ -6,6 +16,7 @@ import {
   lunch, dinner, addOns, desserts, cocktails, wine, beer, menuFinePrint,
 } from '../data/menu.js'
 
+// Links in the top bar on this page. '#lunch' etc. scroll to that section; '/' goes home.
 const NAV = [
   { label: 'Lunch', to: '#lunch' },
   { label: 'Dinner', to: '#dinner' },
@@ -14,6 +25,8 @@ const NAV = [
   { label: 'Home', to: '/' },
 ]
 
+// A gold heading with a little scroll flourish on each side:  ~~ Antipasti ~~
+// `as` picks the heading level (h2 for big section titles, h3 for categories).
 function Heading({ children, as: Tag = 'h3', className = '' }) {
   return (
     <Flourished className={`menu-heading ${className}`.trim()}>
@@ -28,6 +41,7 @@ export default function Menu() {
       <Header links={NAV} navLabel="Menu sections" />
 
       <main>
+        {/* ── PAGE TITLE ── "Menu" in gold between two olive branches, plus the Italian-flag stripe */}
         <div className="container menu-hero">
           <p className="eyebrow">Authentic Italian cuisine</p>
           <div className="menu-hero-title">
@@ -38,6 +52,9 @@ export default function Menu() {
           <Tricolore />
         </div>
 
+        {/* ── LUNCH ──────────────────────────────────────────────────────
+            Inside a gold double-line frame with decorative corners.
+            Two columns: Pasta (lunch.pasta) and Lunch Entrées (lunch.entrees). */}
         <section id="lunch" className="container menu-section">
           <div className="menu-frame">
             <Corners />
@@ -62,6 +79,11 @@ export default function Menu() {
           </div>
         </section>
 
+        {/* ── DINNER ─────────────────────────────────────────────────────
+            One block per category in `dinner` (Antipasti, Insalate, Pasta, ...),
+            laid out two-across on wide screens. Adding a new category to
+            `dinner` in menu.js makes a new block appear here automatically.
+            Below that: the "Add to any salad or pasta" box (`addOns`). */}
         <section id="dinner" className="container menu-section">
           <div className="menu-title">
             <Divider />
@@ -85,6 +107,7 @@ export default function Menu() {
           </div>
         </section>
 
+        {/* ── DOLCI (DESSERTS) ── framed box, items from `desserts` */}
         <section id="desserts" className="container menu-section">
           <div className="menu-frame raised">
             <Corners />
@@ -96,6 +119,11 @@ export default function Menu() {
           </div>
         </section>
 
+        {/* ── DRINKS ─────────────────────────────────────────────────────
+            Left column: Cocktails (`cocktails` — no prices shown).
+            Right column: Wine, grouped Red / White / Rosé / Sparkling (`wine`),
+            prices are "glass / bottle".
+            Underneath: the beer list (`beer`) as one line separated by dots. */}
         <section id="drinks" className="container menu-section drinks-section">
           <div className="menu-title">
             <Grapes className="grapes" />
@@ -129,6 +157,7 @@ export default function Menu() {
         </section>
       </main>
 
+      {/* ── FINE PRINT ── gratuity / card fee (`menuFinePrint`), catering contact, drink responsibly */}
       <footer className="menu-footer">
         <div className="container">
           {menuFinePrint.map((line) => <span key={line}>{line}</span>)}

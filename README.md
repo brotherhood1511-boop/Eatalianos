@@ -39,4 +39,5 @@ Every photo spot shows a labeled placeholder until a photo is set. To add one:
 - Motown Mondays start time
 - Our Story headline and the owner's back story
 - Instagram and Facebook links
+- "In the news" articles and featured Facebook posts (`newsArticles` and `facebookPosts` in `src/data/site.js`)
 - All photos and the two videos

@@ -1,10 +1,31 @@
-// Hand-drawn gold ornaments from the design. All decorative, so hidden from screen readers.
+// =============================================================================
+// ORNAMENTS  —  the hand-drawn gold decorations used throughout the site
+//
+// Everything here is a small drawing made of SVG shapes (paths, circles,
+// ellipses). They're all decoration, so each one has aria-hidden="true" —
+// that tells screen readers for blind visitors to skip them.
+//
+// You normally won't edit this file. What each piece is:
+//   Branch        olive branch beside the big "Eataliano" and "Menu" titles
+//   Grapes        bunch of grapes above "Drinks" on the menu page
+//   Flourish      small curly scroll; Flourished puts one on each side of something
+//   EyebrowRow    the small gold label over each section title:  ~~ THE BAR ~~
+//   Divider       long gold line with two scrolls and a diamond in the middle
+//   Corners       the four curly corners on the framed Lunch and Dolci boxes
+//   Tricolore     the little green / white / red Italian-flag stripe
+//   CoastlineArt  the wide coastline drawing at the top of the home page footer
+//
+// The gold color comes from `color` in index.css; the drawings use "currentColor"
+// so they automatically match it.
+// =============================================================================
 
+// Each leaf on the olive branch: [x, y, rotation in degrees, size].
 const LEAVES = [
   [30, 91, -62, 1], [44, 85, 28, 1], [72, 72, -70, 1], [86, 66, 22, 1], [116, 53, -72, 1],
   [130, 47, 18, 1], [156, 35, -66, 1], [170, 29, 14, 1], [192, 19, -48, 0.85], [203, 13, -12, 0.7],
 ]
 
+// Each olive hanging off the branch: its stem, the olive itself, and a small shine highlight.
 const OLIVES = [
   { stem: 'M84 67 C84 71 86 74 86 78', cx: 86, cy: 86, rx: 6.56, ry: 8, hl: [83.44, 82.96, 1.6, 2.4] },
   { stem: 'M66 75 C66 79 62 82.5 62 86.5', cx: 62, cy: 94, rx: 6.15, ry: 7.5, hl: [59.6, 91.15, 1.5, 2.25] },
@@ -34,6 +55,7 @@ function BranchShapes(props) {
   )
 }
 
+// Position [x, y] of each grape in the bunch.
 const GRAPES = [
   [52, 48], [67, 48], [82, 48], [44.5, 61], [59.5, 61], [74.5, 61], [89.5, 61],
   [52, 74], [67, 74], [82, 74], [59.5, 87], [74.5, 87], [67, 100],
@@ -68,6 +90,9 @@ function FlourishShapes(props) {
   )
 }
 
+// ---- The pieces the pages actually use ----
+
+// Olive branch. Add the class "flip" (or "left" in the hero) to point it the other way.
 export function Branch({ className = '' }) {
   return (
     <svg className={`ornament ${className}`} viewBox="0 0 220 110" aria-hidden="true">
@@ -103,6 +128,7 @@ export function Flourished({ children, className = '' }) {
   )
 }
 
+// The small uppercase gold label above a section title, e.g.  ~~ EVERY WEEK ~~
 export function EyebrowRow({ children, center = false }) {
   return (
     <Flourished className={`eyebrow-row${center ? ' center' : ''}`}>
@@ -111,6 +137,7 @@ export function EyebrowRow({ children, center = false }) {
   )
 }
 
+// Long centered ornament line used to separate sections:  ———~◆~———
 export function Divider() {
   return (
     <svg className="divider" viewBox="0 0 400 40" aria-hidden="true">
@@ -124,6 +151,8 @@ export function Divider() {
   )
 }
 
+// Four decorative corners (top-left, top-right, bottom-left, bottom-right).
+// Put this inside a box with class "menu-frame" and it pins one in each corner.
 export function Corners() {
   return ['tl', 'tr', 'bl', 'br'].map((pos) => (
     <svg key={pos} className={`corner ${pos}`} viewBox="0 0 40 40" aria-hidden="true">
@@ -134,6 +163,7 @@ export function Corners() {
   ))
 }
 
+// Green / white / red stripe under the big titles (colors set in index.css).
 export function Tricolore() {
   return (
     <div className="tricolore" aria-hidden="true">

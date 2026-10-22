@@ -1,9 +1,21 @@
+// =============================================================================
+// APP  —  decides which page to show based on the web address
+//
+//   yoursite.com/       → Home page  (src/pages/Home.jsx)
+//   yoursite.com/menu   → Menu page  (src/pages/Menu.jsx)
+//   anything else       → Home page
+//
+// To add a new page later: make a file in src/pages/, import it below, and add
+// another <Route path="/whatever" element={<NewPage />} /> line.
+// =============================================================================
+
 import { useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import Home from './pages/Home.jsx'
 import Menu from './pages/Menu.jsx'
 
-// On route change, jump to the #section in the URL if there is one, otherwise to the top.
+// When you switch pages, start at the top of the new page — unless the link
+// pointed at a section (like /#visit), in which case scroll to that section.
 function ScrollManager() {
   const { pathname, hash } = useLocation()
 
